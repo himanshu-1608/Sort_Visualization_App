@@ -19,7 +19,7 @@ class BarChart(context: Context, attributes: AttributeSet) : View(context, attri
             const val HIGH_2 = 2
             const val SECONDARY = 3
 
-            const val RANGE_MAX = 100
+            const val RANGE_MAX = 1000
         }
 
         val heightInPercent = value.toFloat() / RANGE_MAX

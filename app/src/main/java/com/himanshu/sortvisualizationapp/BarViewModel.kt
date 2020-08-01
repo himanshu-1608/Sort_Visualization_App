@@ -54,7 +54,7 @@ class BarViewModel : ViewModel() {
 
     companion object {
         const val SIZE_MIN = 10
-        const val SIZE_MAX = 1000
+        const val SIZE_MAX = 10000
     }
 
     val sortingType = arrayOf(SortingType.BUBBLE, SortingType.MERGE, SortingType.RADIX)
