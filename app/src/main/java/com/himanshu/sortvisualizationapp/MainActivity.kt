@@ -67,7 +67,7 @@ class SecondActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             count = etCount.text.toString().trim().toInt()
-            if(count !in 10..400){
+            if(count !in 5..400){
                 Toast.makeText(this,"Enter list size between 5-400",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
