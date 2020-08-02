@@ -19,4 +19,4 @@ A small app that shows how all the elements in a data structure are sorted using
 <img src="/Screenshots/MergeBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/MergeTriangle.jpg" width="215px" height="420px"/>
 <img src="/Screenshots/QuickBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/QuickTriangle.jpg" width="215px" height="420px"/>
 <img src="/Screenshots/SelectionBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/SelectionTriangle.jpg" width="215px" height="420px"/>
-<img src="/Screenshots/InsertionBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/InsertionTriangle.jpg" width="215px" height="420px"/
+<img src="/Screenshots/InsertionBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/InsertionTriangle.jpg" width="215px" height="420px"/>
