@@ -6,6 +6,6 @@
     </string-array>
     <string-array name="typeOfGraph">
         <item>Bar Graph Design</item>
-        <item>Triangle\nDesign</item>
+        <item>Triangle Design</item>
     </string-array>
 </resources>
