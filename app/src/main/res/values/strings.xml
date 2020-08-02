@@ -3,6 +3,9 @@
     <string-array name="typeOfSort">
         <item>Bubble Sort</item>
         <item>Merge Sort</item>
+        <item>Quick Sort</item>
+        <item>Selection Sort</item>
+        <item>Insertion Sort</item>
     </string-array>
     <string-array name="typeOfGraph">
         <item>Bar Graph Design</item>

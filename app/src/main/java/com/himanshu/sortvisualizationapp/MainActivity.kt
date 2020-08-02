@@ -3,15 +3,20 @@ package com.himanshu.sortvisualizationapp
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class Randomiser {
     companion object {
@@ -73,18 +78,42 @@ class SecondActivity : AppCompatActivity() {
             }
             isSorting = true
             btnStart.isClickable = false
-            sleepTime = if(sortType=="Bubble Sort") {
-                when (count) {
-                    in 1..100 -> 10000 / ((count * (count + 1)) / 2)
-                    else -> 0
+            sleepTime = when (sortType) {
+                "Bubble Sort" -> {
+                    when (count) {
+                        in 1..100 -> 10000 / ((count * (count + 1)) / 2)
+                        else -> 0
+                    }
                 }
-            } else {
-                when (count) {
-                    in 5..50 -> 150
-                    in 51..100 -> 55
-                    in 101..300 -> 25
-                    else -> 10
+                "Merge Sort" -> {
+                    when (count) {
+                        in 5..50 -> 150
+                        in 51..100 -> 55
+                        in 101..300 -> 25
+                        else -> 10
+                    }
                 }
+                "Quick Sort" -> {
+                    when (count) {
+                        in 5..45 -> 120
+                        in 46..100 -> 45
+                        in 101..300 -> 10
+                        else -> 5
+                    }
+                }
+                "Selection Sort" -> {
+                    when (count) {
+                        in 1..100 -> 10000 / ((count * (count + 1)) / 2)
+                        else -> 0
+                    }
+                }
+                "Insertion Sort" -> {
+                    when (count) {
+                        in 1..100 -> 10000 / ((count * (count + 1)) / 2)
+                        else -> 0
+                    }
+                }
+                else -> { 0 }
             }
             listInt = Randomiser.doRandom(count)
 
@@ -101,6 +130,9 @@ class SecondActivity : AppCompatActivity() {
             when (sortType) {
                 "Bubble Sort" -> doBubbleSorting()
                 "Merge Sort" -> doMergeSorting()
+                "Quick Sort" -> doQuickSorting()
+                "Selection Sort" -> doSelectionSorting()
+                "Insertion Sort" -> doInsertionSorting()
             }
             btnStart.isClickable = true
         }
@@ -331,5 +363,214 @@ class SecondActivity : AppCompatActivity() {
             linearLayout.invalidate()
         }
 
+    }
+
+
+    private fun doQuickSorting() {
+        GlobalScope.launch(Dispatchers.IO) {
+            quickSort(0,count-1)
+            for(i in listInt) Log.d("Final","$i")
+            isSorting = false
+        }
+    }
+
+    private suspend fun quickSort(low: Int, high: Int) {
+        if(low < high) {
+            val pi: Int = partition(low, high)
+            quickSort(low, pi - 1)
+            quickSort(pi + 1, high)
+        }
+    }
+
+    private suspend fun partition(low: Int,high: Int): Int {
+        val pivot = listInt[high]
+        Thread.sleep(sleepTime.toLong())
+        withContext(Dispatchers.Main) {
+            linearLayout.getChildAt(high)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorRed))
+        }
+        var i = (low - 1)
+        var tempInt: Int
+        var tempView: View
+        for (j in low until high) {
+            withContext(Dispatchers.Main) {
+                linearLayout.getChildAt(j)
+                    .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimaryDark))
+                linearLayout.invalidate()
+
+            }
+            Thread.sleep(sleepTime.toLong())
+            withContext(Dispatchers.Main) {
+                linearLayout.getChildAt(j)
+                    .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                linearLayout.invalidate()
+            }
+            if (listInt[j] < pivot) {
+                i++
+                withContext(Dispatchers.Main) {
+                    linearLayout.getChildAt(i)
+                        .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimaryDark))
+                    linearLayout.getChildAt(j)
+                        .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimaryDark))
+                    linearLayout.invalidate()
+                }
+                tempInt = listInt[i]
+                listInt[i] = listInt[j]
+                listInt[j] = tempInt
+                Thread.sleep(sleepTime.toLong())
+                tempView = listView[i]
+                listView[i] = listView[j]
+                listView[j] = tempView
+                withContext(Dispatchers.Main) {
+                    linearLayout.getChildAt(i)
+                        .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                    linearLayout.getChildAt(j)
+                        .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                    linearLayout.invalidate()
+
+                    linearLayout.removeAllViews()
+                    (0 until count).forEach { i ->
+                        linearLayout.addView(listView[i])
+                    }
+                    linearLayout.invalidate()
+                }
+            }
+        }
+        i++
+        withContext(Dispatchers.Main) {
+            linearLayout.getChildAt(i)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimary))
+            linearLayout.getChildAt(high)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimary))
+            linearLayout.invalidate()
+        }
+        tempInt = listInt[i]
+        listInt[i] = listInt[high]
+        listInt[high] = tempInt
+        Thread.sleep(sleepTime.toLong())
+        tempView = listView[i]
+        listView[i] = listView[high]
+        listView[high] = tempView
+        withContext(Dispatchers.Main) {
+            linearLayout.getChildAt(i)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+            linearLayout.getChildAt(high)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+            linearLayout.invalidate()
+
+            linearLayout.removeAllViews()
+            (0 until count).forEach { i ->
+                linearLayout.addView(listView[i])
+            }
+            linearLayout.invalidate()
+        }
+        return i
+    }
+
+    private fun doSelectionSorting() {
+        GlobalScope.launch(Dispatchers.IO) {
+            var minIndex:Int
+            var tempInt:Int
+            var tempView:View
+            for(i in 0 until count) {
+                if(i>0) {
+                    listView[i-1].setBackgroundColor(
+                        ContextCompat.getColor(this@SecondActivity,R.color.colorRed))
+                    withContext(Dispatchers.Main) {
+                        linearLayout.removeAllViews()
+                        (0 until count).forEach { i ->
+                            linearLayout.addView(listView[i])
+                        }
+                        linearLayout.invalidate()
+                    }
+                }
+                minIndex = i
+                for(j in i+1 until count) {
+                    withContext(Dispatchers.Main) {
+                        linearLayout.getChildAt(j)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimary))
+                    }
+                    Thread.sleep(sleepTime.toLong())
+                    if(listInt[j] < listInt[minIndex]) {
+                        minIndex = j
+                    }
+                    withContext(Dispatchers.Main) {
+                        linearLayout.getChildAt(j)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                    }
+                }
+                tempInt = listInt[minIndex]
+                listInt[minIndex] = listInt[i]
+                listInt[i] = tempInt
+
+                tempView = listView[minIndex]
+                listView[minIndex] = listView[i]
+                listView[i] = tempView
+            }
+            linearLayout.getChildAt(count-1)
+                .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorRed))
+            linearLayout.invalidate()
+            for(i in 0 until count) {
+                Thread.sleep(20L)
+                linearLayout.getChildAt(i)
+                    .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+            }
+            isSorting = false
+        }
+    }
+
+    private fun doInsertionSorting() {
+        GlobalScope.launch(Dispatchers.IO) {
+            var key: Int
+            var keyView:View
+            var j:Int
+            for(i in 1 until count) {
+                listView[i]
+                    .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorRed))
+            }
+            for(i in 1 until count) {
+                Thread.sleep(sleepTime.toLong())
+                listView[i]
+                    .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                withContext(Dispatchers.Main) {
+                    linearLayout.removeAllViews()
+                    (0 until count).forEach { i ->
+                        linearLayout.addView(listView[i])
+                    }
+                    linearLayout.invalidate()
+                }
+                key = listInt[i]
+                keyView = listView[i]
+                j = i-1
+                while(j>=0 && listInt[j] > key) {
+                    withContext(Dispatchers.Main) {
+                        linearLayout.getChildAt(j)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimary))
+                        linearLayout.getChildAt(j+1)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorPrimary))
+                    }
+                    Thread.sleep(sleepTime.toLong())
+                    withContext(Dispatchers.Main) {
+                        linearLayout.getChildAt(j)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                        linearLayout.getChildAt(j+1)
+                            .setBackgroundColor(ContextCompat.getColor(this@SecondActivity,R.color.colorAccent))
+                    }
+                    listInt[j+1] = listInt[j]
+                    listView[j+1] = listView[j]
+                    j--
+                }
+                listInt[j+1] = key
+                listView[j+1] = keyView
+            }
+            withContext(Dispatchers.Main) {
+                linearLayout.removeAllViews()
+                (0 until count).forEach { i ->
+                    linearLayout.addView(listView[i])
+                }
+                linearLayout.invalidate()
+            }
+            isSorting = false
+        }
     }
 }
