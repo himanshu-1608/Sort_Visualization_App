@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Sort Visualization App</string>
+    <string-array name="typeOfSort">
+        <item>Bubble Sort</item>
+        <item>Merge Sort</item>
+    </string-array>
+    <string-array name="typeOfGraph">
+        <item>Bar Graph Design</item>
+        <item>Triangle\nDesign</item>
+    </string-array>
 </resources>
