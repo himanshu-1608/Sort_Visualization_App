@@ -12,7 +12,8 @@ A small app that shows how all the elements in a data structure are sorted using
 
 - Technical Features:
   - Kotlin Language (Lambda functions)
-  - Merge & Bubble sort visualized using Views
+  - Heavy use of Kotlin Coroutines with Main & IO scopes.
+  - Sorts visualized using Views
 - SCREENSHOTS
 
 <img src="/Screenshots/BubbleBar.jpg" width="215px" height="420px"/> <img src="/Screenshots/BubbleTriangle.jpg" width="215px" height="420px"/>
