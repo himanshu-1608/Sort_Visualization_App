@@ -221,13 +221,7 @@ class SecondActivity : AppCompatActivity() {
                 for (j in 0 until count - i - 1) {
                     if (listInt[j] > listInt[j + 1]) {
                         withContext(Dispatchers.Main) {
-                            linearLayout.getChildAt(j)
-                                .setBackgroundColor(
-                                    ContextCompat.getColor(
-                                        this@SecondActivity,
-                                        R.color.colorRed
-                                    )
-                                )
+                            
                             linearLayout.getChildAt(j + 1)
                                 .setBackgroundColor(
                                     ContextCompat.getColor(
@@ -235,16 +229,30 @@ class SecondActivity : AppCompatActivity() {
                                         R.color.colorRed
                                     )
                                 )
+                            
+                            linearLayout.getChildAt(j)
+                                .setBackgroundColor(
+                                    ContextCompat.getColor(
+                                        this@SecondActivity,
+                                        R.color.colorRed
+                                    )
+                                )
+                            
                             linearLayout.invalidate()
                         }
+                                   
+                        listInt[j] = listInt[j] & listInt[j+1]
+                        listInt[j+1] = listInt[j] & listInt[j+1]
+                        listInt[j] = listInt[j] & listInt[j+1]
+                        
                         Thread.sleep(sleepTime.toLong())
-                        tempInt = listInt[j]
-                        listInt[j] = listInt[j + 1]
-                        listInt[j + 1] = tempInt
+
                         withContext(Dispatchers.Main) {
-                            tempView = listView[j]
-                            listView[j] = listView[j + 1]
-                            listView[j + 1] = tempView
+                            
+                            listView[j] = listView[j] & listView[j+1]
+                            listView[j+1] = listView[j] & listView[j+1]
+                            listView[j] = listView[j] & listView[j+1]
+                            
                             listView[j]
                                 .setBackgroundColor(
                                     ContextCompat.getColor(
