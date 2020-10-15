@@ -241,7 +241,7 @@ class SecondActivity : AppCompatActivity() {
                             linearLayout.invalidate()
                         }
 
-                        var temp=listInt[j];
+                        var temp1=listInt[j];
                         listInt[j]=listInt[j+1];
                         listInt[j+1]=temp;
                         
@@ -249,7 +249,7 @@ class SecondActivity : AppCompatActivity() {
 
                         withContext(Dispatchers.Main) {
 
-                            var temp=listInt[j];
+                            var temp2=listInt[j];
                             listInt[j]=listInt[j+1];
                             listInt[j+1]=temp;
 
