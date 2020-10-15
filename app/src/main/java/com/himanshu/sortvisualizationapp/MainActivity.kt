@@ -243,7 +243,7 @@ class SecondActivity : AppCompatActivity() {
 
                         var temp1=listInt[j];
                         listInt[j]=listInt[j+1];
-                        listInt[j+1]=temp;
+                        listInt[j+1]=temp1;
                         
                         Thread.sleep(sleepTime.toLong())
 
@@ -251,7 +251,7 @@ class SecondActivity : AppCompatActivity() {
 
                             var temp2=listInt[j];
                             listInt[j]=listInt[j+1];
-                            listInt[j+1]=temp;
+                            listInt[j+1]=temp2;
 
                             listView[j]
                                 .setBackgroundColor(
