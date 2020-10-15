@@ -248,13 +248,11 @@ class SecondActivity : AppCompatActivity() {
                         Thread.sleep(sleepTime.toLong())
 
                         withContext(Dispatchers.Main) {
-                            
-                            listView[j] = listView[j] & listView[j+1]
-                            listView[j+1] = listView[j] & listView[j+1]
-                            listView[j] = listView[j] & listView[j+1]
 
+                            var temp=listInt[j];
+                            listInt[j]=listInt[j+1];
+                            listInt[j+1]=temp;
 
-                            
                             listView[j]
                                 .setBackgroundColor(
                                     ContextCompat.getColor(
