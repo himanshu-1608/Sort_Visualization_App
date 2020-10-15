@@ -241,17 +241,17 @@ class SecondActivity : AppCompatActivity() {
                             linearLayout.invalidate()
                         }
 
-                        var temp=listInt[j];
+                        var temp1=listInt[j];
                         listInt[j]=listInt[j+1];
-                        listInt[j+1]=temp;
+                        listInt[j+1]=temp1;
                         
                         Thread.sleep(sleepTime.toLong())
 
                         withContext(Dispatchers.Main) {
 
-                            var temp=listInt[j];
+                            var temp2=listInt[j];
                             listInt[j]=listInt[j+1];
-                            listInt[j+1]=temp;
+                            listInt[j+1]=temp2;
 
                             listView[j]
                                 .setBackgroundColor(
