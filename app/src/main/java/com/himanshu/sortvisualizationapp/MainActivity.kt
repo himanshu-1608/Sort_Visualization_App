@@ -240,10 +240,10 @@ class SecondActivity : AppCompatActivity() {
                             
                             linearLayout.invalidate()
                         }
-                                   
-                        listInt[j] = listInt[j] & listInt[j+1]
-                        listInt[j+1] = listInt[j] & listInt[j+1]
-                        listInt[j] = listInt[j] & listInt[j+1]
+
+                        var temp=listInt[j];
+                        listInt[j]=listInt[j+1];
+                        listInt[j+1]=temp;
                         
                         Thread.sleep(sleepTime.toLong())
 
@@ -252,6 +252,8 @@ class SecondActivity : AppCompatActivity() {
                             listView[j] = listView[j] & listView[j+1]
                             listView[j+1] = listView[j] & listView[j+1]
                             listView[j] = listView[j] & listView[j+1]
+
+
                             
                             listView[j]
                                 .setBackgroundColor(
